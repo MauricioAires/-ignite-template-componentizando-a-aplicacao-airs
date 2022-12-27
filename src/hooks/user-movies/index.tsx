@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useState } from 'react';
 
 import { api } from '../../services/api';
 
@@ -26,7 +26,7 @@ export type MovieContextData = {
   genres: GenreResponseProps[];
   selectedGenreId: number;
   selectedGenre: GenreResponseProps;
-  handleClickButton: (id: number) => void;
+  handleClickButton: (genre: GenreResponseProps) => void;
 };
 
 // Valores padão do contexto ( pode conter funções também)
@@ -74,16 +74,13 @@ const MovieProvider = ({ children }: MovieProviderProps) => {
         setMovies(response.data);
       });
 
-    api
-      .get<GenreResponseProps>(`genres/${selectedGenreId}`)
-      .then((response) => {
-        setSelectedGenre(response.data);
-      });
+   
   }, [selectedGenreId]);
 
-  function handleClickButton(id: number) {
-    setSelectedGenreId(id);
-  }
+  const  handleClickButton = useCallback((genre: GenreResponseProps)  => {
+    setSelectedGenreId(genre.id);
+    setSelectedGenre(genre)
+  }, [])
 
   return (
     <MovieContext.Provider

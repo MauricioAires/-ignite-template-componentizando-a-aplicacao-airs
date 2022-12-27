@@ -1,4 +1,4 @@
-import { Star, Clock } from 'react-feather';
+import { IconClock, IconStar } from '../assets'
 
 import '../styles/movie-card.scss';
 
@@ -22,11 +22,11 @@ export function MovieCard(props: MovieCardProps) {
           <span>{props.title}</span>
           <div className="meta">
             <div>
-              <Star /> {props.rating}
+              <IconStar /> {props.rating}
             </div>
 
             <div>
-              <Clock /> {props.runtime}
+              <IconClock /> {props.runtime}
             </div>
           </div>
         </div>
